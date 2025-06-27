@@ -6,40 +6,801 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ahmad Elhemaily Portfolio</title>
     <link rel="icon" href="images/favicon.png" type="image/png">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/0a3db51bce.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global styles */
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif; /* Changed to Inter for a sleeker look */
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background: #0d1117; /* Darker background for a professional feel */
+            color: #c9d1d9; /* Lighter grey for text */
+            line-height: 1.6;
+        }
+
+        /* Utility classes */
+        .container {
+            padding: 20px 8%; /* Increased padding for more breathing room */
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .subtitle {
+            font-size: 3.5rem; /* Larger and more impactful subtitle */
+            font-weight: 700;
+            color: #58a6ff; /* A vibrant blue for accents */
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        .subtitle::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: #58a6ff;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            border-radius: 2px;
+        }
+
+        /* Header styles */
+        #header {
+            width: 100%;
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(images/background.png) no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        #header .container {
+            padding-top: 0;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 20px 8%; /* Added padding for nav to match container width */
+            position: fixed; /* Changed to fixed for persistent nav */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(13, 17, 23, 0.9); /* Semi-transparent background */
+            backdrop-filter: blur(5px); /* Blur effect for sleekness */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+            transition: background 0.3s ease;
+        }
+        nav .logo {
+            width: 120px; /* Slightly smaller logo */
+            filter: brightness(1.2); /* Make it pop a bit */
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: #c9d1d9;
+            text-decoration: none;
+            font-size: 1.1rem;
+            position: relative;
+            transition: color 0.3s ease;
+            padding-bottom: 5px;
+        }
+        nav ul li a::after {
+            content: '';
+            width: 0;
+            height: 3px;
+            background: #58a6ff;
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            transition: width 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #58a6ff;
+        }
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        nav .fas {
+            display: none; /* Hidden by default on desktop */
+            font-size: 2.2rem; /* Larger burger icon */
+            cursor: pointer;
+            color: #58a6ff; /* Blue color for visibility */
+        }
+
+        .header-text {
+            text-align: center;
+            margin-top: 80px; /* Adjust as needed for vertical centering */
+        }
+        .header-text p {
+            font-size: 1.5rem;
+            color: #c9d1d9;
+            margin-bottom: 10px;
+        }
+        .header-text p span {
+            color: #58a6ff;
+            font-weight: 600;
+        }
+        .header-text h1 {
+            font-size: 4.5rem; /* Larger, more impactful heading */
+            margin-top: 10px;
+            color: #fff;
+            line-height: 1.2;
+        }
+        .header-text h1 span {
+            color: #58a6ff;
+        }
+
+        /* About section */
+        #about {
+            padding: 100px 0;
+            background: #161b22; /* Slightly different dark background */
+        }
+        #about .row {
+            display: flex;
+            /* Changed align-items to flex-start to prevent image pushing text down if image is taller */
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .about-col-1 {
+            flex-basis: 35%; /* Adjusted for better alignment */
+            text-align: center;
+        }
+        .about-col-1 img {
+            width: 90%;
+            max-width: 400px; /* Cap max width for image */
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .about-col-1 img:hover {
+            transform: translateY(-5px);
+        }
+        .about-col-2 {
+            flex-basis: 60%; /* Adjusted for better alignment */
+            padding-left: 30px;
+        }
+        .about-col-2 p {
+            font-size: 1.25rem; /* Increased font size for about me paragraph */
+            color: #c9d1d9;
+            margin-bottom: 25px;
+        }
+        .tab-titles {
+            display: flex;
+            margin: 40px 0 30px;
+            justify-content: center; /* Center tabs */
+            border-bottom: 2px solid #262626; /* Subtle separator */
+            padding-bottom: 5px;
+        }
+        .tab-links {
+            margin: 0 30px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            color: #c9d1d9;
+            transition: color 0.3s ease;
+            padding: 10px 0;
+        }
+        .tab-links::after {
+            content: '';
+            width: 0;
+            height: 3px;
+            background: #58a6ff;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -2px;
+            transition: width 0.3s ease;
+        }
+        .tab-links:hover {
+            color: #58a6ff;
+        }
+        .tab-links.active-link {
+            color: #58a6ff;
+        }
+        .tab-links.active-link::after {
+            width: 100%;
+        }
+        .tab-contents ul li {
+            list-style: none;
+            margin: 15px 0;
+            font-size: 1.1rem;
+        }
+        .tab-contents ul li span {
+            color: #58a6ff;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .tab-contents {
+            display: none;
+            padding-top: 20px;
+        }
+        .tab-contents.active-tab {
+            display: block;
+        }
+
+        /* Services section */
+        #services {
+            padding: 100px 0;
+            background: #0d1117;
+        }
+        .services-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px; /* Increased gap for more space between service cards */
+        }
+        .services-list div {
+            background: #161b22;
+            padding: 30px; /* Adjusted padding to give more room for text and icon */
+            border-radius: 15px;
+            text-align: center;
+            transition: background 0.4s, transform 0.4s;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(88, 166, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex: 1 1 300px;
+            max-width: 350px;
+            box-sizing: border-box;
+            aspect-ratio: 1 / 1;
+            min-height: 380px;
+            min-width: 0; /* Allows flex items to shrink below content size if necessary */
+        }
+        .services-list div i {
+            font-size: 5rem; /* Slightly reduced icon size for better fit */
+            margin-bottom: 30px; /* Reduced margin below icon */
+            color: #58a6ff;
+            transition: color 0.4s;
+            text-shadow: 0 0 20px rgba(88, 166, 255, 0.9);
+            display: block;
+            width: fit-content;
+        }
+        .services-list div h2 {
+            font-size: 2.5rem; /* Adjusted heading size */
+            font-weight: 600;
+            margin-bottom: 20px; /* Reduced margin below heading */
+            color: #c9d1d9;
+        }
+        .services-list div p {
+            font-size: 1.1rem; /* Adjusted paragraph text size */
+            color: #c9d1d9;
+        }
+        .services-list div:hover {
+            background: #1f2731;
+            transform: translateY(-10px);
+            border-color: #58a6ff;
+        }
+        .services-list div:hover i {
+            color: #58a6ff;
+        }
+
+        /* Portfolio section */
+        #portfolio {
+            padding: 100px 0;
+            background: #161b22;
+        }
+        .work-list {
+            display: grid;
+            /* Changed to 3 columns on larger screens, allowing minimum width of 350px per card */
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: 30px; /* Adjusted gap for 3 columns */
+            justify-items: center; /* Center items within the grid cells */
+        }
+        .work {
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.5s;
+            width: 100%; /* Ensure work item takes full width of its grid cell */
+            max-width: 550px; /* Increased max width for a consistent look on larger screens */
+            aspect-ratio: 1 / 1; /* Maintain aspect ratio */
+            min-height: 450px; /* Increased minimum height for work items to give more room */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .work img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+            transition: transform 0.5s;
+        }
+        /* Changed to initially hide the layer completely */
+        .layer {
+            width: 100%;
+            height: 100%; /* Make it take full height */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), #58a6ffb3);
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center content vertically */
+            flex-direction: column;
+            padding: 20px; /* Adjusted padding */
+            text-align: center;
+            transition: opacity 0.5s ease-in-out; /* Transition opacity instead of height */
+            color: #fff;
+            border-radius: 10px;
+            box-sizing: border-box;
+            opacity: 0; /* Initially hidden */
+            pointer-events: none; /* Allows clicks to pass through when hidden */
+        }
+
+        /* Project name on top of the image */
+        /* Removed as per user request */
+        
+        .layer h3 {
+            font-weight: 500;
+            margin-bottom: 20px;
+            font-size: 2.8rem; /* Keep this for when the layer is visible */
+            opacity: 0; /* Initially hidden in the layer */
+            transition: opacity 0.5s;
+        }
+        .layer p {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            color: #e0e0e0;
+            opacity: 0; /* Initially hidden in the layer */
+            transition: opacity 0.5s;
+        }
+        .layer a {
+            margin-top: 15px;
+            color: #000000;
+            text-decoration: none;
+            font-size: 3rem;
+            line-height: 80px;
+            background: #ffffff;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s, color 0.3s;
+            opacity: 0; /* Initially hidden in the layer */
+            transition: opacity 0.5s;
+        }
+        .layer a:hover {
+            background: #e0e0e0;
+            color: #58a6ff;
+        }
+        .work:hover img {
+            transform: scale(1.05);
+        }
+        /* Show the layer and its content on hover */
+        .work:hover .layer {
+            opacity: 1;
+            pointer-events: auto; /* Enable clicks when visible */
+        }
+        .work:hover .layer h3,
+        .work:hover .layer p,
+        .work:hover .layer a {
+            opacity: 1;
+        }
+        /* Removed as per user request, no longer needed to hide project title */
+        /* .work:hover .project-title {
+            opacity: 0; 
+        } */
+
+        .btn {
+            display: block;
+            margin: 60px auto 0;
+            width: fit-content;
+            border: 2px solid #58a6ff;
+            padding: 15px 50px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #58a6ff;
+            background: transparent;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(88, 166, 255, 0.2);
+        }
+        .btn:hover {
+            background: #58a6ff;
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(88, 166, 255, 0.4);
+        }
+
+        /* Contact section */
+        #contact {
+            padding: 100px 0;
+            background: #0d1117;
+        }
+        #contact .row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+        .contact-left {
+            flex-basis: 35%;
+        }
+        .contact-right {
+            flex-basis: 60%;
+        }
+        .contact-left p {
+            margin-top: 25px;
+            font-size: 1.1rem;
+            /* Added flexbox properties to align icon and text */
+            display: flex;
+            align-items: center;
+        }
+        .contact-left p i {
+            color: #58a6ff;
+            margin-right: 15px;
+            font-size: 1.3rem;
+        }
+        .social-icons {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+        }
+        .social-icons a {
+            text-decoration: none;
+            font-size: 2.2rem;
+            color: #c9d1d9;
+            display: inline-block;
+            transition: transform 0.4s, color 0.4s;
+        }
+        .social-icons a:hover {
+            color: #58a6ff;
+            transform: translateY(-5px) scale(1.1);
+        }
+        .btn.btn2 {
+            background: #58a6ff;
+            color: #fff;
+            border: none;
+            box-shadow: 0 4px 15px rgba(88, 166, 255, 0.4);
+        }
+        .btn.btn2:hover {
+            background: #4682b4; /* Slightly darker blue on hover */
+            box-shadow: 0 6px 20px rgba(88, 166, 255, 0.6);
+        }
+
+        /* Contact form styles */
+        .contact-right form {
+            width: 100%;
+        }
+        form input, form textarea {
+            width: 100%;
+            border: 1px solid #30363d; /* Subtle border */
+            outline: none;
+            background: #0d1117; /* Same as body for seamless look */
+            padding: 18px;
+            margin: 15px 0;
+            color: #c9d1d9;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        form input:focus, form textarea:focus {
+            border-color: #58a6ff;
+            box-shadow: inset 0 2px 6px rgba(88, 166, 255, 0.3);
+        }
+        form .btn2 {
+            padding: 15px 60px;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            cursor: pointer;
+            border: none;
+        }
+        #msg {
+            color: #61b752;
+            margin-top: -20px; /* Adjusted margin */
+            display: block;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        /* Return to top button */
+        #return-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #58a6ff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(88, 166, 255, 0.4);
+            transition: background 0.3s, transform 0.3s, opacity 0.3s;
+            z-index: 999;
+            opacity: 0; /* Hidden by default */
+        }
+        #return-to-top.show {
+            opacity: 1; /* Show when needed */
+        }
+        #return-to-top:hover {
+            background-color: #4682b4;
+            transform: translateY(-5px);
+        }
+
+        /* Copyright bar styles */
+        #copyright-bar {
+            background-color: #161b22;
+            color: #c9d1d9;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+            border-top: 1px solid #30363d;
+        }
+
+        /* Responsive styles */
+        @media only screen and (min-width: 1200px) { 
+            .work-list {
+                /* Changed to 3 columns, with a min card width of 350px */
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+                gap: 30px; /* Adjusted gap for 3 columns */
+            }
+            .work {
+                max-width: 100%; /* Allow items to fill their 1/3 column */
+                /* Set min-height to ensure cards are not too small, while still allowing for 3 columns */
+                min-height: 400px; 
+            }
+        }
+        @media only screen and (max-width: 1199px) and (min-width: 769px) { /* 1 column for tablets/smaller desktops to ensure large size */
+            .services-list div {
+                flex-basis: calc(50% - 20px); /* Adjust to allow two items per row with gap */
+                max-width: calc(50% - 20px); /* Explicit max width for two columns */
+            }
+            .work-list {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns for this breakpoint */
+                gap: 40px; /* Adjusted gap for 2 columns */
+            }
+            .work {
+                min-height: 400px; /* Adjust min height for 2 columns */
+            }
+        }
+
+        @media only screen and (max-width: 768px) {
+            .container {
+                padding: 10px 5%;
+            }
+            nav {
+                padding: 20px 5%; /* Adjust nav padding for mobile */
+            }
+            .header-text {
+                margin-top: 120px;
+            }
+            .header-text h1 {
+                font-size: 3rem;
+            }
+            .header-text p {
+                font-size: 1.2rem;
+            }
+            .subtitle {
+                font-size: 2.8rem;
+                margin-bottom: 40px;
+            }
+            #about .row {
+                flex-direction: column;
+                /* Reset align-items for mobile, as it will stack */
+                align-items: center; 
+            }
+            .about-col-1, .about-col-2 {
+                flex-basis: 100%;
+                padding-left: 0;
+            }
+            .about-col-1 {
+                margin-bottom: 40px;
+            }
+            .about-col-1 img {
+                width: 70%; /* Smaller image on mobile */
+                max-width: 350px; /* Ensure it scales down gracefully */
+                margin: 0 auto; /* Center image */
+            }
+            .tab-links {
+                margin: 0 15px;
+                font-size: 1.1rem;
+            }
+            .tab-contents ul li {
+                font-size: 1rem;
+            }
+            .services-list {
+                flex-direction: column; /* Stack on small screens */
+                align-items: center; /* Center items when stacked */
+                gap: 30px; /* Adjusted gap for mobile services */
+            }
+            .services-list div {
+                padding: 25px; /* Adjusted padding for mobile services */
+                max-width: 90%; /* Take up more width on small screens */
+                min-height: auto; /* Allow height to adjust */
+            }
+            .services-list div h2 {
+                font-size: 2rem; /* Adjusted for mobile */
+            }
+            .services-list div p {
+                font-size: 1rem; /* Adjusted for mobile */
+            }
+            .services-list div i {
+                font-size: 4rem; /* Adjusted for mobile */
+                margin-bottom: 25px; /* Adjusted margin for mobile */
+            }
+            .work-list {
+                grid-template-columns: 1fr; /* Single column on small screens */
+                gap: 40px; /* Adjusted gap for mobile work */
+            }
+            .work {
+                min-height: 350px; /* Adjusted minimum height for mobile work */
+            }
+            .work img { /* Adjusted for smaller screens */
+                height: 100%; /* Image fills the square container on mobile too */
+            }
+            .layer h3 {
+                font-size: 1.6rem; /* Adjusted for mobile to be slightly smaller */
+                margin-bottom: 20px; /* Adjusted margin for mobile */
+            }
+            .layer p {
+                font-size: 0.9rem; /* Adjusted for mobile to be slightly smaller */
+                margin-bottom: 25px; /* Adjusted margin for mobile */
+            }
+            .layer a {
+                font-size: 2rem; /* Adjusted for mobile to be slightly smaller */
+                width: 60px; /* Adjusted for mobile */
+                height: 60px; /* Adjusted for mobile */
+                line-height: 60px; /* Adjusted for mobile */
+            }
+            #contact .row {
+                flex-direction: column;
+            }
+            .contact-left, .contact-right {
+                flex-basis: 100%;
+            }
+            .contact-left {
+                margin-bottom: 40px;
+            }
+            .contact-right form {
+                padding: 0;
+            }
+            #return-to-top {
+                width: 45px;
+                height: 45px;
+                font-size: 1.8rem;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+            #header {
+                background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(images/phone-background.png); /* Small screen background image */
+            }
+            nav ul {
+                background: #161b22;
+                position: fixed;
+                top: 0;
+                right: -250px; /* Hide off-screen */
+                width: 250px;
+                height: 100vh;
+                padding-top: 80px;
+                z-index: 1001;
+                transition: right 0.5s ease-in-out;
+                flex-direction: column;
+                align-items: flex-start;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.4);
+            }
+            nav ul.open {
+                right: 0; /* Show on open */
+            }
+            nav ul li {
+                margin: 20px 30px;
+            }
+            nav .fas {
+                display: block; /* Show burger icon */
+                position: relative;
+                z-index: 1002;
+            }
+            nav ul .fas.fa-times {
+                position: absolute;
+                top: 25px;
+                left: 25px;
+                display: block; /* Always show close button on mobile menu */
+            }
+            .header-text h1 {
+                font-size: 2.5rem;
+            }
+            .header-text p {
+                font-size: 1rem;
+            }
+            .subtitle {
+                font-size: 2.2rem;
+            }
+            .about-col-2 p {
+                font-size: 0.95rem;
+            }
+            .tab-links {
+                font-size: 1rem;
+            }
+            .services-list div h2 {
+                font-size: 1.6rem;
+            }
+            .services-list div i {
+                font-size: 3rem;
+            }
+        }
+
+        /* Hide burger menu and close button on PC screens */
+        @media only screen and (min-width: 601px) {
+            nav .fas {
+                display: none !important;
+            }
+        }
+    </style>
 </head>
 <body>
 <div id="header">
     <div class="container">
         <nav>
-            <img src="images/logo.png" class="logo">
+            <img src="images/logo.png" class="logo" alt="Logo">
             <ul id="sidemenu">
-                <li><a href="#header">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#img1">Portfolio</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#header" onclick="closemenu()">Home</a></li>
+                <li><a href="#about" onclick="closemenu()">About</a></li>
+                <li><a href="#services" onclick="closemenu()">Services</a></li>
+                <li><a href="#portfolio" onclick="closemenu()">Portfolio</a></li>
+                <li><a href="#contact" onclick="closemenu()">Contact</a></li>
                 <i class="fas fa-times" onclick="closemenu()"></i>
             </ul>
-            <i class="fas fa-bars" onclick="openmenu()"></i>
+            <i class="fas fa-bars" onclick="togglemenu()"></i>
         </nav>
         <div class="header-text">
-            <p><span>Front End Developer </span>/ Project Manager</p>
-            <h1><span>Ahmad </span>Elhemaily</h1>
+            
+            <h1> Hi, you've reached the portfolio of <br> <br>
+                <p><span>Software Engineer</span> / Project Manager</p>
+                <span>Ahmad</span> Elhemaily</h1>
+                <br>
+            <h1>how cool!</h1>
         </div>
     </div>
 </div>
+
 <!-- About section -->
 <div id="about">
     <div class="container">
+        <h1 class="subtitle">About Me</h1>
         <div class="row">
             <div class="about-col-1">
-                <img src="images/user.png">
+                <img src="images/user.png" alt="Ahmad Elhemaily">
             </div>
             <div class="about-col-2">
-                <h1 class="subtitle">About Me</h1>
-                <p>An aspiring front end developer and Project Management Professional (PMP) with 8+ years of experience in successfully leading techincal teams and managing project processes. A relationship-driven polyglot with a passion for developing great teams that click together</p>
+                <p>A passionate front-end software engineer and certified Project Management Professional (PMP) with over 8 years of experience. I excel at leading technical teams and streamlining project processes, ensuring successful delivery from concept to completion. My approach is deeply rooted in fostering strong relationships and building cohesive, high-performing teams.</p>
                 
                 <div class="tab-titles">
                     <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
@@ -48,23 +809,23 @@
                 </div>
                 <div class="tab-contents active-tab" id="skills">
                     <ul>
-                        <li><span>Web development</span><br> Website Development via HTML/css/Javascript</li>
-                        <li><span>UI/UX</span><br>Web interface design</li>
-                        <li><span>Project Management</span><br> Team leadership in agile and waterfall settings</li>
+                        <li><span>Web Development</span><br> Crafting modern, responsive web experiences using HTML, CSS, and JavaScript frameworks.</li>
+                        <li><span>UI/UX Design</span><br> Designing intuitive and engaging user interfaces for optimal user experience.</li>
+                        <li><span>Project Management</span><br> Leading cross-functional teams in both Agile and Waterfall methodologies, ensuring project success.</li>
                     </ul>
                 </div>
                 <div class="tab-contents" id="experience">
                     <ul>
+                        <li><span>Software Engineer</span><br> QZee Business & Services Inc., London, ON</li>
                         <li><span>Project Manager</span><br> Digistar - Design & Advertising Agency</li>
                         <li><span>Sr. Project Manager</span><br>Sol. Co Eg</li>
-                        <li><span>Project Manager</span><br> Spirit Printing House & Advertising Agency
-                        </li>
+                        <li><span>Project Manager</span><br> Spirit Printing House & Advertising Agency</li>
                     </ul>
                 </div>
                 <div class="tab-contents" id="education">
                     <ul>
                         <li><span>2021</span><br> Masters of Applied Ethics (Linköping University, Sweden)</li>
-                        <li><span>2019</span><br>Masters of Business Management (Lund University, Sweden)</li>
+                        <li><span>2019</span><br> Masters of Business Management (Lund University, Sweden)</li>
                         <li><span>2015</span><br> BA of Philosophy and English Literature (The American University in Cairo)</li>
                     </ul>
                 </div>
@@ -72,6 +833,7 @@
         </div>
     </div>
 </div>
+
 <!-- Services -->
 <div id="services">
     <div class="container">
@@ -80,118 +842,112 @@
             <div>
                 <i class="fa-solid fa-code"></i>
                 <h2>Web Design</h2>
-           
+                <p>Creating visually stunning and user-friendly web interfaces tailored to your brand's unique identity.</p>
             </div>
             <div>
-                <i class="fa-solid fa-users"></i>
-                <h2>UI Design</h2>
-          
+                <i class="fa-solid fa-laptop-code"></i>
+                <h2>UI/UX Design</h2>
+                <p>Focusing on the user journey to design intuitive and delightful experiences that convert and engage.</p>
             </div>
             <div>
                 <i class="fa-solid fa-globe"></i>
                 <h2>Web Development</h2>
-               
+                <p>Building robust, scalable, and high-performance websites from concept to deployment, using modern technologies.</p>
             </div>
         </div>
     </div>
-
 </div>
+
 <!-- Portfolio-->
 <div id="portfolio">
     <div class="container">
         <h1 class="subtitle">My Work</h1>
         <div class="work-list">
-
             <div class="work">
-                <img src="images/regopad.png" id = "img1">
+                <img src="images/cleancolumns.png" alt="CleanColumns Project">
+                <!-- Removed project title from here -->
+                <div class="layer">
+                    <h3>CleanColumns</h3>
+                    <p>A JavaScript-based parser that efficiently sorts complex datasets and large strings from PDF bank statements, producing clean, organized Excel files.</p>
+                    <a href="https://aelhemaily.github.io/cleancolumns/" target="_blank" aria-label="View CleanColumns Project"><i class="fa-solid fa-up-right-from-square"></i></a>
+                </div>
+            </div>
+            <div class="work">
+                <img src="images/ainawaradat.png" alt="Aina Waradat Project">
+                <!-- Removed project title from here -->
+                <div class="layer">
+                    <h3>Aina Waradat</h3>
+                    <p>A React application designed to help Quran memorizers test and practice their knowledge by pinpointing the Surah from given Ayahs.</p>
+                    <a href="https://aelhemaily.github.io/cleancolumns/" target="_blank" aria-label="View Aina Waradat Project"><i class="fa-solid fa-up-right-from-square"></i></a>
+                </div>
+            </div>
+            <div class="work">
+                <img src="images/regopad.png" id="img1" alt="Regopad Project">
+                <!-- Removed project title from here -->
                 <div class="layer">
                     <h3>Regopad</h3>
-                    <p> Regopad Text Editor is a tool that helps you edit and navigate texts in a simplified way using regular expressions.</p>
-                    <a href="https://aelhemaily.github.io/Regopad/" target = "_blank"><i class="fa-solid fa-link"></i></a>
+                    <p>Regopad Text Editor is a powerful tool simplifying text editing and navigation through the intelligent use of regular expressions.</p>
+                    <a href="https://aelhemaily.github.io/Regopad/" target="_blank" aria-label="View Regopad Project"><i class="fa-solid fa-up-right-from-square"></i></a>
                 </div>
             </div>
-
             <div class="work">
-                <img src="images/smite.png">
+                <img src="images/smite.png" alt="SmiteCounters Project">
+                <!-- Removed project title from here -->
                 <div class="layer">
                     <h3>SmiteCounters</h3>
-                    <p> A website that serves as a database of strategies to counter characters in the MOBA game Smite.</p>
-                    <a href="https://aelhemaily.github.io/Smite-Counters/" target="_blank"><i class="fa-solid fa-link"></i></a>
+                    <p>A comprehensive website serving as a database of strategic counter-picks and tactics for characters in the popular MOBA game, Smite.</p>
+                    <a href="https://aelhemaily.github.io/Smite-Counters/" target="_blank" aria-label="View SmiteCounters Project"><i class="fa-solid fa-up-right-from-square"></i></a>
                 </div>
             </div>
-
-           
             <div class="work">
-                <img src="images/astrocatcher.png">
+                <img src="images/astrocatcher.png" alt="Astrocatcher Project">
+                <!-- Removed project title from here -->
                 <div class="layer">
                     <h3>Astrocatcher</h3>
-                    <p> Astrocatcher is an arcade outer-space themed game. Play as a UFO -- paint it the right color and catch all those comets!</p>
-                    <a href="https://aelhemaily.github.io/Astrocatcher/" target = "_blank"><i class="fa-solid fa-link"></i></a>
+                    <p>A captivating arcade outer-space themed game. Play as a UFO, matching colors to catch incoming comets in a fun, challenging environment!</p>
+                    <a href="https://aelhemaily.github.io/Astrocatcher/" target="_blank" aria-label="View Astrocatcher Project"><i class="fa-solid fa-up-right-from-square"></i></a>
                 </div>
             </div>
-
             <div class="work">
-                <img src="images/linguimage.png">
+                <img src="images/linguimage.png" alt="Linguimage Project">
+                <!-- Removed project title from here -->
                 <div class="layer">
-                    <h3>SmiteCounters</h3>
-                    <p> A website that serves as a database of strategies to counter characters in the MOBA game Smite.</p>
-                    <a href="https://aelhemaily.github.io/Smite-Counters/" target="_blank"><i class="fa-solid fa-link"></i></a>
+                    <h3>Linguimage</h3>
+                    <p>A React application designed to help Spanish language learners practice and master verb conjugations through interactive exercises.</p>
+                    <a href="https://aelhemaily.github.io/Linguimage/" target="_blank" aria-label="View Linguimage Project"><i class="fa-solid fa-up-right-from-square"></i></a>
                 </div>
             </div>
-
-            <div class="work">
-                <img src="images/rgt.png">
-                <div class="layer">
-                    <h3>SmiteCounters</h3>
-                    <p> A website that serves as a database of strategies to counter characters in the MOBA game Smite.</p>
-                    <a href="https://aelhemaily.github.io/Smite-Counters/" target="_blank"><i class="fa-solid fa-link"></i></a>
-                </div>
-            </div>
-           
-
-            <div class="work">
-                <img src="images/idiommachine.png">
-                <div class="layer">
-                    <h3>SmiteCounters</h3>
-                    <p> A website that serves as a database of strategies to counter characters in the MOBA game Smite.</p>
-                    <a href="https://aelhemaily.github.io/Smite-Counters/" target="_blank"><i class="fa-solid fa-link"></i></a>
-                </div>
-            </div>
-           
-           
-
-
         </div>
-        
+        <!-- <a href="#" class="btn">See More</a> -->
     </div>
 </div>
-<!-- contact -->
+
+<!-- Contact -->
 <div id="contact">
     <div class="container">
+        <h1 class="subtitle">Contact Me</h1>
         <div class="row">
             <div class="contact-left">
-                <h1 class="subtitle">Contact Me</h1>
                 <p><i class="fa-solid fa-envelope"></i> Ahmad.elhemaily@gmail.com</p>
-                <p><i class="fa-solid fa-phone"></i>4378736493</p>
+                <p><i class="fa-solid fa-phone"></i> +1 (437) 873-6493</p>
                 <div class="social-icons">
-                    <a href="https://github.com/aelhemaily" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="https://www.facebook.com/ahmad.hemaily.9" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.linkedin.com/feed/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://github.com/aelhemaily" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+                    <a href="https://www.facebook.com/ahmad.hemaily.9" target="_blank" aria-label="Facebook Profile"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.linkedin.com/feed/" target="_blank" aria-label="LinkedIn Profile"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
             </div>
             <div class="contact-right">
                 <form name="submit-to-google-sheet">
                     <input type="text" name="Name" placeholder="Your Name" required>
                     <input type="email" name="Email" placeholder="Your Email" required>
-                    <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+                    <textarea name="Message" rows="6" placeholder="Your Message" required></textarea>
                     <button type="submit" class="btn btn2">Submit</button>
                 </form>
                 <span id="msg"></span>
             </div>
         </div>
     </div>
-    <!-- go home button-->
-    <button id="return-to-top" onclick="scrollToTop()">↑</button>
+    <button id="return-to-top">↑</button>
 </div> 
 
 <!-- Copyright Bar -->
@@ -200,86 +956,71 @@
 </div>
 
 <script>
-var tablinks = document.getElementsByClassName("tab-links");
-var tabcontents = document.getElementsByClassName("tab-contents");
+    // Tab functionality for About section
+    var tablinks = document.getElementsByClassName("tab-links");
+    var tabcontents = document.getElementsByClassName("tab-contents");
 
-console.log(tablinks.length);
-
-function opentab(tabname) {
-  console.log("Opening tab:", tabname);
-
-  // Remove active class from all tabs and contents
-  for (let i = 0; i < tablinks.length; i++) {
-    tablinks[i].classList.remove("active-link");
-    tabcontents[i].classList.remove("active-tab");
-  }
-
-  // Add active class to the clicked tab link and corresponding tab content
-  var clickedTabLink = document.querySelector(`p[onclick="opentab('${tabname}')"]`);
-  console.log(clickedTabLink);
-  var clickedTabIndex = Array.from(tablinks).indexOf(clickedTabLink);
-  console.log("clickedTabLink: ", clickedTabLink);
-  
-  console.log("Clicked tab index:", clickedTabIndex);
-
-  if (clickedTabIndex !== -1) {
-    tablinks[clickedTabIndex].classList.add("active-link");
-    document.getElementById(tabname).classList.add("active-tab");
-  }
-}
-</script>
-
-<script>
-var sidemenu = document.getElementById("sidemenu");
-function openmenu(){
-    sidemenu.style.right = "0";
-}
-function closemenu(){
-    sidemenu.style.right = "-200px";
-}
-</script>
-
-<script>
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwY2xdyqiaUx18wmy51gh75KyZn1nC89WOkemSen9Z1qQ2FkwKWz87TlmZXKMRRARLg/exec';
-const form = document.forms['submit-to-google-sheet'];
-const msg = document.getElementById("msg");
-
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  msg.innerHTML = "Sending message..."; 
-  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-    .then(response => {
-        msg.innerHTML = "Message sent successfully!";
-        setTimeout(function(){
-            msg.innerHTML = "";
-        }, 2000); 
-        form.reset(); 
-    })
-    .catch(error => {
-        msg.innerHTML = "Error occurred. Please try again.";
-        console.error('Error!', error.message);
-    });
-});
-</script>
-
-<script>
-// Function to scroll to the top of the page smoothly
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-}
-
-// Function to toggle the visibility of the "return to top" button based on scroll position
-window.onscroll = function() {
-    var button = document.getElementById("return-to-top");
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        button.style.display = "block";
-    } else {
-        button.style.display = "none";
+    function opentab(tabname) {
+        for (let tablink of tablinks) {
+            tablink.classList.remove("active-link");
+        }
+        for (let tabcontent of tabcontents) {
+            tabcontent.classList.remove("active-tab");
+        }
+        event.currentTarget.classList.add("active-link");
+        document.getElementById(tabname).classList.add("active-tab");
     }
-};
+
+    // Side menu functionality for mobile (toggle function)
+    var sidemenu = document.getElementById("sidemenu");
+
+    function togglemenu() {
+        sidemenu.classList.toggle("open");
+    }
+
+    function closemenu() {
+        sidemenu.classList.remove("open");
+    }
+
+    // Contact Form Submission (Google Sheet)
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwY2xdyqiaUx18wmy51gh75KyZn1nC89WOkemSen9Z1qQ2FkwKWz87TlmZXKMRRARLg/exec';
+    const form = document.forms['submit-to-google-sheet'];
+    const msg = document.getElementById("msg");
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        msg.innerHTML = "Sending message...";
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => {
+                msg.innerHTML = "Message sent successfully!";
+                setTimeout(function(){
+                    msg.innerHTML = "";
+                }, 2000);
+                form.reset();
+            })
+            .catch(error => {
+                msg.innerHTML = "Error occurred. Please try again.";
+                console.error('Error!', error.message);
+            });
+    });
+
+    // Scroll to top button functionality
+    const scrollToTopButton = document.getElementById("return-to-top");
+
+    window.onscroll = function() {
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            scrollToTopButton.classList.add("show");
+        } else {
+            scrollToTopButton.classList.remove("show");
+        }
+    };
+
+    scrollToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
 </script>
 </body>
 </html>
