@@ -512,16 +512,35 @@
         form .btn2 {
             padding: 15px 60px;
             font-size: 1.2rem;
-            margin-top: 20px;
+            margin-top: 20px; /* Adjusted margin-top to create space */
             cursor: pointer;
             border: none;
+            margin-bottom: 20px; /* Added margin-bottom to create space for message */
         }
         #msg {
-            color: #61b752;
-            margin-top: -20px; /* Adjusted margin */
+            /* Removed negative margin-top to position it correctly below the button */
+            margin-top: 10px; /* Positive margin to separate from button */
             display: block;
             font-size: 1.1rem;
             text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            opacity: 0; /* Initially hidden */
+            transform: translateY(10px); /* Start slightly below */
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        #msg.success {
+            color: #36c036; /* A clear success green */
+            background-color: rgba(54, 192, 54, 0.1);
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #msg.error {
+            color: #ff4d4d; /* A clear error red */
+            background-color: rgba(255, 77, 77, 0.1);
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Return to top button */
@@ -942,8 +961,9 @@
                     <input type="email" name="Email" placeholder="Your Email" required>
                     <textarea name="Message" rows="6" placeholder="Your Message" required></textarea>
                     <button type="submit" class="btn btn2">Submit</button>
+                    <!-- Moved the message span below the button -->
+                    <span id="msg"></span>
                 </form>
-                <span id="msg"></span>
             </div>
         </div>
     </div>
@@ -990,17 +1010,26 @@
     form.addEventListener('submit', e => {
         e.preventDefault();
         msg.innerHTML = "Sending message...";
+        msg.className = ''; // Clear previous classes
+        
         fetch(scriptURL, { method: 'POST', body: new FormData(form)})
             .then(response => {
                 msg.innerHTML = "Message sent successfully!";
+                msg.classList.add('success'); // Add success class
                 setTimeout(function(){
                     msg.innerHTML = "";
+                    msg.classList.remove('success'); // Remove success class
                 }, 2000);
                 form.reset();
             })
             .catch(error => {
                 msg.innerHTML = "Error occurred. Please try again.";
+                msg.classList.add('error'); // Add error class
                 console.error('Error!', error.message);
+                setTimeout(function(){
+                    msg.innerHTML = "";
+                    msg.classList.remove('error'); // Remove error class
+                }, 2000);
             });
     });
 
